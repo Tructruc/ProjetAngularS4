@@ -1,0 +1,5 @@
+<div class="d-flex align-items-end">
+  <h4 class="m-0 me-2">{{exercise.name}}</h4>
+  <h5  class="m-0 me-2">{{exercise.repetitions}} répétitions</h5>
+  <h6 *ngIf="exercise.weight > 0" class="mb-0">{{exercise.weight}}kg</h6>
+</div>
