@@ -1,4 +1,4 @@
-<div class="accordion-item" [ngClass]="{'bg-warning' : routine.status == status.INACTIVE,
+<div *ngIf="statusFilter=='all' || routine.status==status.ACTIVE && statusFilter =='active' || routine.status==status.INACTIVE && statusFilter =='inactive'" class="accordion-item" [ngClass]="{'bg-warning' : routine.status == status.INACTIVE,
                   'bg-success' : routine.status == status.ACTIVE}">
   <h2 class="accordion-header" id="flush-headingOne">
     <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#routine' + routine.id" aria-expanded="false" aria-controls="flush-collapseOne">

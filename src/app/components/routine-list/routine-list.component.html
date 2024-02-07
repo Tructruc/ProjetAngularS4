@@ -1,10 +1,25 @@
 <div class="container mt-4" *ngIf="(routines|async) as listeRoutines">
   <h2>Mes {{listeRoutines.length}} routine{{listeRoutines.length > 1 ? "s" : ""}}</h2>
+
+  <div class="d-flex align-items-center">
+    <div class="dropdown mx-1">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        État
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='active'">Active</a></li>
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='inactive'">Inactives</a></li>
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='all'">Toutes</a></li>
+      </ul>
+    </div>
+    {{statusFilter === 'all' ? 'Toutes' : statusFilter === 'active' ? 'Actives' : 'Inactives'}}
+  </div>
+
   <div class="accordion accordion-flush" id="accordionFlushExample">
     <app-routine-item
       *ngFor="let routine of listeRoutines" [routine]="routine"
       class="list-group-item list-group-item-action"
-
+      [statusFilter]="statusFilter"
     />
   </div>
 

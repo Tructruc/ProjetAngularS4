@@ -11,11 +11,10 @@ import {Observable} from "rxjs";
 export class RoutineListComponent implements OnInit {
   public routines!: Observable<Routine[]>;
 
+  public statusFilter: string = "all";
   constructor(private routineService: RoutineService) { }
 
   ngOnInit(): void {
     this.routines = this.routineService.getAllRoutines()
   }
-
-  protected readonly status = Status;
 }

@@ -9,9 +9,9 @@ import {Router} from "@angular/router";
   styleUrl: './routine-item.component.scss'
 })
 export class RoutineItemComponent {
-  @Input()
-  public routine: Routine = new Routine();
+  @Input() public routine: Routine = new Routine();
   readonly  status = Status;
+  @Input() statusFilter!: string;
 
   constructor(private routineService: RoutineService) {
   }

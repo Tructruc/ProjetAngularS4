@@ -1,6 +1,12 @@
 <div class="container mt-4" *ngIf="exercises as listExercices">
   <h1>{{routine.name}}</h1>
-  <div class="card mb-2"><div class="card-body">{{routine.description}}</div></div>
+  <div class="card mb-2">
+    <div class="card-body">
+      {{routine.description}}
+      <br>
+      Date de création : <span class="badge bg-secondary">{{ routine.creationDate | date: 'dd/MM/yyyy' }}</span>
+    </div>
+  </div>
 
   <br>
 
