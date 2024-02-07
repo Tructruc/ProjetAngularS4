@@ -5,6 +5,8 @@ import {NgForm} from "@angular/forms";
 import {Routine} from "../../models/routine";
 import {RoutineService} from "../../services/routine.service";
 import {Exercise} from "../../models/exercise";
+import {ExerciseType} from "../../models/exercise-type";
+import {ExerciseTypeService} from "../../services/exercise-type.service";
 
 @Component({
   selector: 'app-exercises-edit',
@@ -14,12 +16,18 @@ import {Exercise} from "../../models/exercise";
 export class ExercisesEditComponent implements OnInit {
   @Input() exercise: Exercise = new Exercise();
   private routineId: number = 0;
+  public exercisesTypes: ExerciseType[] = [];
 
-  constructor(private exercisesService: Exerciseervice, private routineService: RoutineService, private router: Router, protected activatedRoute: ActivatedRoute) {
+  constructor(private exercisesService: Exerciseervice,
+              private routineService: RoutineService,
+              private router: Router,
+              protected activatedRoute: ActivatedRoute,
+              private exerciseTypeService: ExerciseTypeService) {
   }
 
   public onSubmit(form: NgForm): void {
     console.log(form);
+    console.log(this.exercise);
     let observableAction;
     if (form.valid) {
       if (this.exercise.id) {
@@ -46,6 +54,12 @@ export class ExercisesEditComponent implements OnInit {
       this.exercise = new Exercise();
       this.exercise.routineId = this.routineId;
     }
+
+    this.exerciseTypeService.getAllExerciseType().subscribe({
+      next: exerciseTypes => this.exercisesTypes = exerciseTypes,
+      error: error => console.error("Erreur de chargement des types d'exercices : ", error)
+    });
+
   }
 
 

@@ -2,11 +2,14 @@
   <form #formulaire="ngForm" (ngSubmit)="onSubmit(formulaire)">
     <div class="mb-3">
       <label for="name" class="form-label">Nom</label>
-      <input [(ngModel)]="exercise.name" required ngModel name="name" id="name" class="form-control form-control-lg" type="text" placeholder="Exercice">
+      <input [(ngModel)]="exercise.name" list="datalistOptions" required ngModel name="name" id="name" class="form-control form-control-lg" type="text" placeholder="Exercice">
+      <datalist id="datalistOptions" class="h">
+        <option *ngFor="let type of exercisesTypes" [value]="type.name">
+      </datalist>
     </div>
     <div class="mb-3">
       <label for="reps" class="form-label">Répétitions</label>
-      <input [(ngModel)]="exercise.repetitions" required ngModel name="reps" id="reps" class="form-control form-control-lg" type="text" placeholder="0">
+      <input [(ngModel)]="exercise.repetitions"required ngModel name="reps" id="reps" class="form-control form-control-lg" type="text" placeholder="0">
     </div>
     <div class="mb-3">
       <label for="weight" class="form-label">Poids (kg)</label>

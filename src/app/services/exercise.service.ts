@@ -25,7 +25,7 @@ export class Exerciseervice {
   }
 
   updateExercise(exercise: Exercise): Observable<Exercise> {
-    return this.http.put<Exercise>(`${this.baseUrl}`, exercise);
+    return this.http.put<Exercise>(`${this.baseUrl}/${exercise.id}`, exercise);
   }
 
   deleteExercise(exercise: Exercise){
