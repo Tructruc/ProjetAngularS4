@@ -4,8 +4,12 @@
 
   <br>
 
-  <h3>{{listExercices.length}} Exercice{{listExercices.length > 1 ? "s" : ""}}</h3>
-
+  <div class="d-flex">
+    <h3>{{listExercices.length}} Exercice{{listExercices.length > 1 ? "s" : ""}}</h3>
+    <div>
+      <button class="btn btn-primary" routerLink="/exercises/{{routine.id}}/edit"><i class="fa-solid fa-plus"></i></button>
+    </div>
+  </div>
   <ul class="list-group">
     <app-exercises-item
       *ngFor="let exercise of listExercices"

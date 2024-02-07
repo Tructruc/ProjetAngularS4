@@ -28,8 +28,8 @@ export class RoutineService {
     return this.http.post<Routine>(this.baseUrl, routine);
   }
 
-  updateRoutine(id: number, routine: Routine): Observable<Routine> {
-    return this.http.put<Routine>(`${this.baseUrl}/${id}`, routine);
+  updateRoutine(routine: Routine): Observable<Routine> {
+    return this.http.put<Routine>(`${this.baseUrl}/${routine.id}`, routine);
   }
 
   deleteRoutine(id: number): Observable<any> {

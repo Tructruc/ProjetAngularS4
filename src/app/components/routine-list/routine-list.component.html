@@ -1,11 +1,12 @@
 <div class="container mt-4" *ngIf="(routines|async) as listeRoutines">
   <h2>Mes {{listeRoutines.length}} routine{{listeRoutines.length > 1 ? "s" : ""}}</h2>
-  <ul class="list-group">
+  <div class="accordion accordion-flush" id="accordionFlushExample">
     <app-routine-item
       *ngFor="let routine of listeRoutines" [routine]="routine"
       class="list-group-item list-group-item-action"
-      [ngClass]="{'bg-warning' : routine.status == status.INACTIVE,
-                  'bg-success' : routine.status == status.ACTIVE}"
+
     />
-  </ul>
+  </div>
 </div>
+
+

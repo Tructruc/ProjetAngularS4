@@ -9,6 +9,8 @@ import { RoutineItemComponent } from './components/routine-item/routine-item.com
 import { HeaderComponent } from './components/header/header.component';
 import { ExercisesListComponent } from './components/exercises-list/exercises-list.component';
 import { ExercisesItemComponent } from './components/exercises-item/exercises-item.component';
+import { ExercisesEditComponent } from './components/exercises-edit/exercises-edit.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { ExercisesItemComponent } from './components/exercises-item/exercises-it
     RoutineItemComponent,
     HeaderComponent,
     ExercisesListComponent,
-    ExercisesItemComponent
+    ExercisesItemComponent,
+    ExercisesEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

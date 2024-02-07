@@ -1,33 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Exercises } from '../models/exercise';
+import { Exercise } from '../models/exercise';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ExerciseService {
+export class Exerciseervice {
   private baseUrl = 'http://localhost:3000/exercises';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
-  getAllExercises(): Observable<Exercises[]> {
-    return this.http.get<Exercises[]>(this.baseUrl);
+  getAllExercise(): Observable<Exercise[]> {
+    return this.http.get<Exercise[]>(this.baseUrl);
   }
 
-  getExerciseById(id: number): Observable<Exercises> {
-    return this.http.get<Exercises>(`${this.baseUrl}/${id}`);
+  getExerciseById(id: number): Observable<Exercise> {
+    return this.http.get<Exercise>(`${this.baseUrl}/${id}`);
   }
 
-  createExercise(exercise: Exercises): Observable<Exercises> {
-    return this.http.post<Exercises>(this.baseUrl, exercise);
+  createExercise(exercise: Exercise): Observable<Exercise> {
+    return this.http.post<Exercise>(this.baseUrl, exercise);
   }
 
-  updateExercise(id: number, exercise: Exercises): Observable<Exercises> {
-    return this.http.put<Exercises>(`${this.baseUrl}/${id}`, exercise);
+  updateExercise(exercise: Exercise): Observable<Exercise> {
+    return this.http.put<Exercise>(`${this.baseUrl}`, exercise);
   }
 
-  deleteExercise(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  deleteExercise(exercise: Exercise){
+    return this.http.delete(`${this.baseUrl}/${exercise.id}`).subscribe(
+      {
+        next: () => {
+          this.router.navigateByUrl("/").then(() => this.router.navigateByUrl("/exercises/"+exercise.routineId))
+        }
+      }
+    );
   }
 }

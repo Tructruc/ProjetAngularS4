@@ -1,10 +1,15 @@
-<div class="d-flex justify-content-between align-items-center">
-  <div class="d-flex flex-column">
-    <h4>{{ routine.name }}</h4>
-    <p class="mb-0">{{ routine.description }}</p>
+<div class="accordion-item" [ngClass]="{'bg-warning' : routine.status == status.INACTIVE,
+                  'bg-success' : routine.status == status.ACTIVE}">
+  <h2 class="accordion-header" id="flush-headingOne">
+    <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#routine' + routine.id" aria-expanded="false" aria-controls="flush-collapseOne">
+      {{ routine.name }}
+    </button>
+  </h2>
+  <div [id]="'routine'+routine.id" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+    <div class="accordion-body">
+      <div class="d-flex justify-content-between">{{ routine.description }}
+        <button class="btn btn-secondary" routerLink="/exercises/{{routine.id}}"><i class="fa-solid fa-eye"></i></button>
+      </div>
+    </div>
   </div>
-  <button class="btn" routerLink="/exercises/{{routine.id}}">
-    <i class="fa-solid fa-eye fa-2xl"></i>
-  </button>
-
 </div>
