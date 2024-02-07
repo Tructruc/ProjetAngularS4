@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <form #formulaire="ngForm" (ngSubmit)="onSubmit(formulaire)">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="routine.name">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" name="description" required [(ngModel)]="routine.description"></textarea>
+    </div>
+
+    <div class="d-flex btn-group">
+      <button type="submit" class="btn btn-primary" [disabled]="!formulaire.valid">{{ routine.id == 0 ? "Créer la routine" : "Modifier la routine"  }}</button>
+      <button type="button" class="btn btn-danger" routerLink="/">Annuler</button>
+    </div>
+  </form>
+
+</div>

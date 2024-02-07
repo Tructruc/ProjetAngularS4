@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Routine, Status } from '../models/routine';
 import {Exercise} from "../models/exercise";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import {Exercise} from "../models/exercise";
 export class RoutineService {
   private baseUrl = 'http://localhost:3000/routines';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getAllRoutines(): Observable<Routine[]> {
     return this.http.get<Routine[]>(this.baseUrl);
@@ -32,7 +33,16 @@ export class RoutineService {
     return this.http.put<Routine>(`${this.baseUrl}/${routine.id}`, routine);
   }
 
-  deleteRoutine(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  deleteRoutine(routine: Routine){
+    this.http.delete(`${this.baseUrl}/${routine.id}`).subscribe(
+        {
+          next: () => {
+            this.router.navigateByUrl("/exercises/1").then(
+                () => this.router.navigateByUrl("/")
+            )
+
+          }
+        }
+    );
   }
 }

@@ -11,6 +11,7 @@ import { ExercisesListComponent } from './components/exercises-list/exercises-li
 import { ExercisesItemComponent } from './components/exercises-item/exercises-item.component';
 import { ExercisesEditComponent } from './components/exercises-edit/exercises-edit.component';
 import {FormsModule} from "@angular/forms";
+import { RoutineEditComponent } from './components/routine-edit/routine-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {FormsModule} from "@angular/forms";
     HeaderComponent,
     ExercisesListComponent,
     ExercisesItemComponent,
-    ExercisesEditComponent
+    ExercisesEditComponent,
+    RoutineEditComponent
   ],
   imports: [
     BrowserModule,
