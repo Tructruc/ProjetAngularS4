@@ -37,4 +37,37 @@ export class Exerciseervice {
       }
     );
   }
+
+  getExerciseStatus(id: number): boolean {
+    // Get the status from the exercise in the local storage, if the date is before today, the status is reset to false
+    // The data is stored in the local storage as a JSON object with the key being the exercise id containing the status and the date
+
+    // Get the status from the local storage
+    let status = window.localStorage.getItem(id.toString());
+
+    if (status){
+      let statusObj = JSON.parse(status);
+
+      // Check if the date is before today
+      let today = new Date();
+      let date = new Date(statusObj.date);
+      if (date.getDay() < today.getDay() || date.getMonth() < today.getMonth() || date.getFullYear() < today.getFullYear()){
+        // Reset the status to false
+        statusObj.status = false;
+        window.localStorage.setItem(id.toString(), JSON.stringify(statusObj));
+        return false;
+      }
+      return statusObj.status;
+    }
+    return false;
+  }
+
+  setExerciseStatus(id:number, status: boolean) {
+    // Set the status of the exercise in the local storage
+    let statusObj = {
+      status: status,
+      date: new Date()
+    };
+    window.localStorage.setItem(id.toString(), JSON.stringify(statusObj));
+  }
 }

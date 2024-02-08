@@ -2,24 +2,41 @@
   <h2>Mes {{listeRoutines.length}} routine{{listeRoutines.length > 1 ? "s" : ""}}</h2>
 
   <div class="d-flex align-items-center">
-    <div class="dropdown mx-1">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        État
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='active'">Active</a></li>
-        <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='inactive'">Inactives</a></li>
-        <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='all'">Toutes</a></li>
-      </ul>
+    <h4>Filtres : </h4>
+    <div class="d-flex align-items-center">
+      <div class="dropdown mx-1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          État
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='active'">Active</a></li>
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='inactive'">Inactives</a></li>
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='all'">Toutes</a></li>
+        </ul>
+      </div>
+      {{ statusFilter === 'all' ? 'Actives et Inactives' : statusFilter === 'active' ? 'Actives' : 'Inactives' }}
     </div>
-    {{statusFilter === 'all' ? 'Toutes' : statusFilter === 'active' ? 'Actives' : 'Inactives'}}
-  </div>
 
-  <div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="d-flex align-items-center">
+      <div class="dropdown mx-1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Progrès
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="finishedFilter='done'">Finies</a></li>
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="finishedFilter='not-done'">Non Finies</a></li>
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="finishedFilter='all'">Toutes</a></li>
+        </ul>
+      </div>
+      {{ statusFilter === 'all' ? 'Toutes' : statusFilter === 'done' ? 'Finies' : 'Non Finies' }}
+    </div>
+  </div>
+  <div class="accordion accordion-flush mt-2" id="accordionFlushExample">
     <app-routine-item
       *ngFor="let routine of listeRoutines" [routine]="routine"
       class="list-group-item list-group-item-action"
       [statusFilter]="statusFilter"
+      [finishedFilter]="finishedFilter"
     />
   </div>
 

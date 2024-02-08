@@ -1,15 +1,30 @@
-<div *ngIf="statusFilter=='all' || routine.status==status.ACTIVE && statusFilter =='active' || routine.status==status.INACTIVE && statusFilter =='inactive'" class="accordion-item" [ngClass]="{'bg-warning' : routine.status == status.INACTIVE,
-                  'bg-success' : routine.status == status.ACTIVE}">
+<div *ngIf="(statusFilter=='all' ||
+            routine.status==status.ACTIVE && statusFilter =='active' ||
+            routine.status==status.INACTIVE && statusFilter =='inactive') &&
+            (finishedFilter=='all' ||
+            finishedFilter=='done' && done ||
+            finishedFilter=='not-done' && !done)"
+class="mt-1 accordion-item">
   <h2 class="accordion-header" id="flush-headingOne">
-    <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#routine' + routine.id" aria-expanded="false" aria-controls="flush-collapseOne">
+    <button class="accordion-button collapsed fs-4"
+            [ngClass]="{'warning' : routine.status == status.INACTIVE, 'success' : routine.status == status.ACTIVE}"
+            type="button"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#routine' + routine.id"
+            aria-expanded="false"
+            aria-controls="flush-collapseOne">
+
       {{ routine.name }}
+
+      <i class="fa-solid fa-trophy mx-1 text-warning" *ngIf="done"></i>
     </button>
   </h2>
   <div [id]="'routine'+routine.id" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">
-      <div class="d-flex justify-content-between">
+    <div class="accordion-body" [ngClass]="{'bg-warning' : routine.status == status.INACTIVE,
+                  'bg-success' : routine.status == status.ACTIVE}">
+      <div class="d-flex justify-content-between bg-black rounded p-3" style="--bs-bg-opacity: 0.4">
         <div class="d-flex align-items-center">
-          <button class="btn btn-secondary mx-1" (click)="onActivate()">
+        <button class="btn btn-secondary mx-1" (click)="onActivate()">
           <i *ngIf="routine.status == status.INACTIVE" class="fa-regular fa-square"></i>
           <i *ngIf="routine.status == status.ACTIVE" class="fa-regular fa-check-square"></i>
         </button>
@@ -18,9 +33,9 @@
         </div>
 
         <div class="d-flex justify-content-end">
-          <button class="btn btn-primary mx-1" routerLink="exercises/{{routine.id}}"><i class="fa-solid fa-eye"></i></button>
+          <button class="btn btn-secondary mx-1" routerLink="exercises/{{routine.id}}"><i class="fa-solid fa-eye"></i></button>
 
-          <button class="btn btn-primary mx-1" routerLink="routines/edit/{{routine.id}}"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button class="btn btn-secondary mx-1" routerLink="routines/edit/{{routine.id}}"><i class="fa-solid fa-pen-to-square"></i></button>
           <button class="btn btn-danger mx-1" (click)="deleteRoutine()"><i class="fa-solid fa-trash"></i></button>
         </div>
       </div>

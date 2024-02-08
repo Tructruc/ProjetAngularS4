@@ -1,0 +1,41 @@
+.accordion-button::after {
+  --bs-accordion-btn-icon: none;
+  --bs-accordion-btn-active-icon: none;
+
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+}
+
+.success.collapsed.accordion-button::after {
+    color: var(--bs-success);
+  }
+
+
+.warning.collapsed.accordion-button::after {
+    color: var(--bs-warning);
+
+  }
+
+.collapsed.accordion-button::after{
+  content: "\2b";
+}
+
+.accordion-button::after {
+  content: "\f068";
+  transform: none;
+}
+
+.accordion-button.collapsed {
+  background: rgba(0,0,0,0.1);
+  border-radius: var(--bs-border-radius) !important;
+}
+
+.accordion-button{
+  border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0 !important;
+}
+
+.accordion-body{
+  border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius) !important;
+}
