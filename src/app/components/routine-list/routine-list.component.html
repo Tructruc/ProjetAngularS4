@@ -2,34 +2,59 @@
   <h2>Mes {{listeRoutines.length}} routine{{listeRoutines.length > 1 ? "s" : ""}}</h2>
 
   <div class="d-flex align-items-center">
-    <h4>Filtres : </h4>
-    <div class="d-flex align-items-center">
-      <div class="dropdown mx-1">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          État
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='active'">Active</a></li>
-          <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='inactive'">Inactives</a></li>
-          <li><a class="dropdown-item" href="javascript:void(0)" (click)="statusFilter='all'">Toutes</a></li>
-        </ul>
-      </div>
-      {{ statusFilter === 'all' ? 'Actives et Inactives' : statusFilter === 'active' ? 'Actives' : 'Inactives' }}
+    <div class="dropdown dropend" id="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Filtres
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li class="dropdown dropend" id="dropdownEtat">
+          <div class="dropdown-item dropdown-toggle " id="dropdownSubmenu1" data-bs-toggle="dropdown" aria-expanded="false" (click)="closeDropdown($event, 'dropdownFinished');">
+            État
+            <ul class="dropdown-menu" >
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="closeDropdown($event, 'dropdown'); statusFilter='active'">Active</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="closeDropdown($event, 'dropdown'); statusFilter='inactive'">Inactive</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="dropdown dropend" id="dropdownFinished">
+          <div class="dropdown-item dropdown-toggle " id="dropdownSubmenu2" data-bs-toggle="dropdown" aria-expanded="false" (click)="closeDropdown($event, 'dropdownEtat')">
+            Progrès
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="closeDropdown($event, 'dropdown'); finishedFilter='done'">Finie</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="closeDropdown($event, 'dropdown'); finishedFilter='not-done'">Non Finie</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
 
-    <div class="d-flex align-items-center">
-      <div class="dropdown mx-1">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Progrès
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="javascript:void(0)" (click)="finishedFilter='done'">Finies</a></li>
-          <li><a class="dropdown-item" href="javascript:void(0)" (click)="finishedFilter='not-done'">Non Finies</a></li>
-          <li><a class="dropdown-item" href="javascript:void(0)" (click)="finishedFilter='all'">Toutes</a></li>
-        </ul>
-      </div>
-      {{ statusFilter === 'all' ? 'Toutes' : statusFilter === 'done' ? 'Finies' : 'Non Finies' }}
+    <div class="d-flex align-items-center ms-2" *ngIf="statusFilter == 'active'">
+      <span class="badge rounded-pill text-bg-secondary d-flex align-items-center">
+        <h5 class="m-0">Active</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="statusFilter='all'"></button>
+      </span>
     </div>
+    <div class="d-flex align-items-center ms-2" *ngIf="statusFilter == 'inactive'">
+      <span class="badge rounded-pill text-bg-secondary d-flex align-items-center">
+        <h5 class="m-0">Inactive</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="statusFilter='all'"></button>
+      </span>
+    </div>
+
+    <div class="d-flex align-items-center ms-2" *ngIf="finishedFilter == 'done'">
+      <span class="badge rounded-pill text-bg-secondary d-flex align-items-center">
+        <h5 class="m-0">Finie</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="finishedFilter='all'"></button>
+      </span>
+    </div>
+    <div class="d-flex align-items-center ms-2" *ngIf="finishedFilter == 'not-done'">
+      <span class="badge rounded-pill text-bg-secondary d-flex align-items-center">
+        <h5 class="m-0">Non Finie</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="finishedFilter='all'"></button>
+      </span>
+    </div>
+
   </div>
   <div class="accordion accordion-flush mt-2" id="accordionFlushExample">
     <app-routine-item
