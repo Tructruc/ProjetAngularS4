@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {RoutineService} from "../../services/routine.service";
 import {ActivatedRoute} from "@angular/router";
 import {Routine} from "../../models/routine";
+import {ExerciseTypeService} from "../../services/exercise-type.service";
+import {ExerciseType} from "../../models/exercise-type";
 
 @Component({
   selector: 'app-exercises-list',
@@ -16,7 +18,9 @@ export class ExercisesListComponent implements OnInit{
   public totalRepetitions: number = 0;
   public totalWeight: number = 0;
 
-  constructor(private routineService: RoutineService, private activatedRoute: ActivatedRoute) { }
+  public exerciseTypes: ExerciseType[] = [];
+
+  constructor(private routineService: RoutineService, private activatedRoute: ActivatedRoute, private exerciceTypeService: ExerciseTypeService) { }
 
   ngOnInit(): void {
     this.routineService.getAllExercises(this.activatedRoute.snapshot.params['id']).subscribe({
@@ -28,10 +32,13 @@ export class ExercisesListComponent implements OnInit{
         });
       }
     }
-
     );
     this.routineService.getRoutineById(this.activatedRoute.snapshot.params['id']).subscribe(
       routine => this.routine = routine
     );
+
+    this.exerciceTypeService.getAllExerciseType().subscribe({
+      next: exerciseTypes => this.exerciseTypes = exerciseTypes
+    });
   }
 }

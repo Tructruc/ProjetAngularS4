@@ -21,10 +21,12 @@
       <button class="btn btn-primary mx-2" routerLink="/exercises/{{routine.id}}/edit"><i class="fa-solid fa-plus"></i></button>
     </div>
   </div>
-  <ul class="list-group">
+  <ul class="list-group" *ngIf="exerciseTypes.length > 0">
     <app-exercises-item
       *ngFor="let exercise of listExercices"
       [exercise]="exercise"
+      [exerciseTypes]="exerciseTypes"
+
       class="list-group-item list-group-item-action"/>
   </ul>
 </div>

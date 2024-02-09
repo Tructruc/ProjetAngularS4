@@ -12,6 +12,7 @@ import { ExercisesItemComponent } from './components/exercises-item/exercises-it
 import { ExercisesEditComponent } from './components/exercises-edit/exercises-edit.component';
 import {FormsModule} from "@angular/forms";
 import { RoutineEditComponent } from './components/routine-edit/routine-edit.component';
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -24,12 +25,13 @@ import { RoutineEditComponent } from './components/routine-edit/routine-edit.com
     ExercisesEditComponent,
     RoutineEditComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        NgOptimizedImage
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,8 @@ import {Exercise} from "../../models/exercise";
 import {Router} from "@angular/router";
 import {Exerciseervice} from "../../services/exercise.service";
 import {Status} from "../../models/routine";
+import {ExerciseTypeService} from "../../services/exercise-type.service";
+import {ExerciseType} from "../../models/exercise-type";
 
 @Component({
   selector: 'app-exercises-item',
@@ -14,13 +16,25 @@ export class ExercisesItemComponent implements OnInit{
   public exercise: Exercise = new Exercise();
   public done: boolean = false;
 
-  constructor(private exerciseService: Exerciseervice, private router: Router) {
+  @Input()
+  public exerciseTypes: ExerciseType[] = [];
+
+  public showImage: boolean = false;
+  public imagePath: string = "";
+  //../../../assets/img-fitness/{{exercise.name.toLowerCase().replaceAll(' ', '-')}}.webp
+
+  constructor(private exerciseService: Exerciseervice){
   }
 
   ngOnInit(): void {
     this.done = this.exerciseService.getExerciseStatus(this.exercise.id);
-  }
 
+    this.exerciseTypes.forEach(exerciseType => {
+      if (this.exercise.name.includes(exerciseType.name)) {
+        this.imagePath = "../../../assets/img-fitness/" + exerciseType.name.toLowerCase().replaceAll(' ', '-') + ".webp";
+      }
+    })
+  }
 
   deleteExercise(exercise: Exercise) {
     if (confirm("Voulez vous réellement supprimer l'exercice " + this.exercise.name)){
@@ -33,5 +47,9 @@ export class ExercisesItemComponent implements OnInit{
   onDo() {
     this.exerciseService.setExerciseStatus(this.exercise.id, !this.done);
     this.done = this.exerciseService.getExerciseStatus(this.exercise.id);
+  }
+
+  onToggleImage() {
+    this.showImage = !this.showImage;
   }
 }

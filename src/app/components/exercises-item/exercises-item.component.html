@@ -11,7 +11,16 @@
     </div>
   </div>
   <div class="d-flex align-items-end">
-      <button class="btn btn-outline-primary me-2" routerLink="edit/{{exercise.id}}"><i class="fa-solid fa-pen-to-square"></i></button>
-      <button class="btn btn-outline-danger" (click)="deleteExercise(exercise)"><i class="fa-solid fa-trash"></i></button>
+    <button *ngIf="imagePath" class="btn btn-outline-success me-2" (click)="onToggleImage()"><i class="fa-solid fa-image"></i></button>
+    <button class="btn btn-outline-primary me-2" routerLink="edit/{{exercise.id}}"><i class="fa-solid fa-pen-to-square"></i></button>
+    <button class="btn btn-outline-danger" (click)="deleteExercise(exercise)"><i class="fa-solid fa-trash"></i></button>
+  </div>
+
+
+</div>
+<div  class="imageDisplay d-flex justify-content-center align-items-center bg-black"  style="--bs-bg-opacity: 0.6" *ngIf="showImage">
+  <img class="h-75" src="{{imagePath}}" />
+  <div class="d-flex align-items-baseline h-75 p-2">
+    <button class="btn btn-outline-danger" (click)="onToggleImage()"><i class="fa-solid fa-times"></i></button>
   </div>
 </div>
