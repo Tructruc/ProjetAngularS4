@@ -19,6 +19,9 @@ export class ExercisesItemComponent implements OnInit{
   @Input()
   public exerciseTypes: ExerciseType[] = [];
 
+  @Input()
+  public finishedFilter: string = "all";
+
   public showImage: boolean = false;
   public imagePath: string = "";
   //../../../assets/img-fitness/{{exercise.name.toLowerCase().replaceAll(' ', '-')}}.webp

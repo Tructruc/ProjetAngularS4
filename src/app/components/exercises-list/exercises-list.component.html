@@ -21,13 +21,48 @@
       <button class="btn btn-primary mx-2" routerLink="/exercises/{{routine.id}}/edit"><i class="fa-solid fa-plus"></i></button>
     </div>
   </div>
+
+  <div class="d-flex align-items-center mb-2">
+    <div class="dropdown dropend" id="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Filtres
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+        <li class="dropdown dropend" id="dropdownFinished">
+          <div class="dropdown-item dropdown-toggle " id="dropdownSubmenu2" data-bs-toggle="dropdown" aria-expanded="false" (click)="$event.stopPropagation()">
+            Progrès
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="closeDropdown($event, 'dropdown'); finishedFilter='done'">Fait</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="closeDropdown($event, 'dropdown'); finishedFilter='not-done'">Non Fait</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="d-flex align-items-center ms-2" *ngIf="finishedFilter == 'done'">
+      <span class="badge rounded-pill text-bg-secondary d-flex align-items-center">
+        <h5 class="m-0">Fait</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="finishedFilter='all'"></button>
+      </span>
+    </div>
+    <div class="d-flex align-items-center ms-2" *ngIf="finishedFilter == 'not-done'">
+      <span class="badge rounded-pill text-bg-secondary d-flex align-items-center">
+        <h5 class="m-0">Fait</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="finishedFilter='all'"></button>
+      </span>
+    </div>
+
+  </div>
   <ul class="list-group" *ngIf="exerciseTypes.length > 0">
     <app-exercises-item
       *ngFor="let exercise of listExercices"
       [exercise]="exercise"
       [exerciseTypes]="exerciseTypes"
+      [finishedFilter]="finishedFilter"
 
-      class="list-group-item list-group-item-action"/>
+      />
   </ul>
 </div>
 
