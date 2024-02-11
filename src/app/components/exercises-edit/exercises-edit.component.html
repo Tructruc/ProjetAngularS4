@@ -17,7 +17,7 @@
     </div>
     <div class="d-flex btn-group">
       <button type="submit" class="btn btn-primary" [disabled]="!formulaire.valid">{{exercise.id==0 ? "Créer l’exercice": "Modifier l’exercice"}}</button>
-      <a [routerLink]="'/exercises/'+activatedRoute.snapshot.params['routeId']" class="btn btn-danger">Annuler</a>
+      <a [routerLink]="'/exercises/'+activatedRoute.snapshot.params['routineId']" class="btn btn-danger">Annuler</a>
     </div>
   </form>
 </div>

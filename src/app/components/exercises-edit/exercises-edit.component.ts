@@ -26,8 +26,6 @@ export class ExercisesEditComponent implements OnInit {
   }
 
   public onSubmit(form: NgForm): void {
-    console.log(form);
-    console.log(this.exercise);
     let observableAction;
     if (form.valid) {
       if (this.exercise.id) {

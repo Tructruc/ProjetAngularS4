@@ -1,0 +1,215 @@
+= Projet Fitness : Complément Web R4.A.10
+:toc-title: Table des matières
+:toc:
+:title-page:
+:sectnums:
+:title-logo-image: image:/Logo_IUT_Blagnac.png[]
+:stem: asciimath
+:source-highlighter: rouge
+Emilien FIEU 3A
+
+== Introduction
+
+Ce projet a été réalisé dans le cadre du cours de Complément Web du S4 de BUT Informatique l’ https://www.iut-blagnac.fr/fr[IUT de Blagnac].
+
+L’objectif de ce projet est de développer une application web permettant de gérer des routines de musculation.
+
+Le projet utilise le framework https://angular.io/[Angular] ainsi qu’une api utilisant le serveur https://github.com/typicode/json-server[json-server]. J’ai utilisé la librairie https://getbootstrap.com/[Bootstrap] pour le style de l’application.
+
+== Fonctionnalités minimales développées
+
+* Voir la liste des routines
+* Voir le détail d’une routine
+* Ajout d’un exercice dans une routine
+* Modification et suppression d’un exercice
+* Création d’une routine
+* Modification d’une routine
+* Suppression d’une routine et de ses exercices
+
+== Fonctionnalités bonus développées
+
+
+* Filtres sur les routines et les exercices
+** J’ai également ajouté un filtre sur les exercices et sur les routines qui permet de filtrer les routines et les exercices selon leur état d’avancement.
+* Détail de la routine (poids et répétitions totales)
+* Suggestions de nom d’exercice avec la table `exerciseType`
+* Marquage des exercices effectués aujourd’hui
+
+== Présentation des classes
+
+=== Services
+
+==== ExerciseService
+
+Ce service permet de gérer les exercices.
+
+Ses méthodes sont les suivantes :
+
+- `getExercises()` : Récupère la liste des exercices
+- `getExerciseById(id: number)` : Récupère un exercice par son identifiant
+- `createExercise(exercise: Exercise)` : Crée un exercice
+- `updateExercise(exercise: Exercise)` : Met à jour un exercice
+- `deleteExercise(id: number)` : Supprime un exercice
+- `getExerciseStats(id: number)` : Récupère le statut d’un exercice dans le local storage
+- `setExerciseStats(id: number, done: boolean)` : Met à jour le statut d’un exercice dans le local storage
+
+==== RoutineService
+
+Ce service permet de gérer les routines.
+
+Ses méthodes sont les suivantes :
+
+- `getAllRoutines()` : Récupère la liste des routines
+- `getRoutineById(id: number)` : Récupère une routine par son identifiant
+- `getAllExercises(id: number)` : Récupère la liste des exercices d’une routine
+- `createRoutine(routine: Routine)` : Crée une routine
+- `updateRoutine(routine: Routine)` : Met à jour une routine
+- `deleteRoutine(id: number)` : Supprime une routine
+
+==== ExerciseTypeService
+
+Ce service permet de récupérer la liste d’exercices types avec sa méthode `getAllExerciseTypes()`.
+
+=== Modèles
+
+==== Exercise
+
+Ce modèle représente un exercice.
+
+Il possède les attributs suivants :
+
+- `id: number` : Identifiant de l’exercice
+- `routineId: number` : Identifiant de la routine
+- `name: string` : Nom de l’exercice
+- `repetitions: number` : Nombre de répétitions
+- `weight: number` : Poids
+
+==== Routine
+
+Ce modèle représente une routine.
+
+Il possède les attributs suivants :
+
+- `id: number` : Identifiant de la routine
+- `name: string` : Nom de la routine
+- `description: string` : Description de la routine
+- `creationDate: Date` : Date de création de la routine
+- `status: Status` : Statut de la routine
+
+Elle contient également une énumération `Status` qui représente le statut de la routine.
+
+==== ExerciseType
+
+Ce modèle représente un type d’exercice.
+
+Il possède les attributs suivants :
+
+- `id: number` : Identifiant du type d’exercice
+- `name: string` : Nom du type d’exercice
+
+=== Composants
+
+==== Header
+
+Ce composant représente l’en-tête de l’application.
+
+Il contient un titre et un bouton pour accéder à la page qui liste les routines.
+
+
+==== Routine
+
+===== RoutineList [[routine-list]]
+
+Ce composant représente la liste des routines.
+
+Il contient un accordéon qui affiche les routines avec le composant <<routine-item>>.
+
+===== RoutineItem [[routine-item]]
+
+Ce composant représente un élément de l’accordéon des routines.
+
+Son titre correspond au nom de la routine, une fois déplié, il affiche la description de la routine ainsi que plusieurs boutons pour accéder à la page de détail de la routine, pour modifier la routine et pour supprimer la routine.
+
+===== RoutineEdit [[routine-edit]]
+
+Ce composant permet de modifier / de créer une routine.
+
+Il contient un formulaire qui permet de modifier le nom et la description de la routine.
+
+==== Exercise
+
+===== ExerciseList [[exercise-list]]
+
+Ce composant représente la liste des exercices d’une routine.
+
+Il contient un tableau qui affiche les exercices avec le composant <<exercise-item>>.
+
+===== ExerciseItem [[exercise-item]]
+
+Ce composant représente un élément du tableau des exercices.
+
+Il affiche le nom, le nombre de répétitions et le poids de l’exercice ainsi que plusieurs boutons pour afficher l’image d’illustration de l’exercice, pour modifier l’exercice et pour supprimer l’exercice. Il permet également de marquer l’exercice comme effectué.
+
+===== ExerciseEdit [[exercise-edit]]
+
+Ce composant permet de modifier / de créer un exercice.
+
+Il contient un formulaire qui permet de modifier le nom, le nombre de répétitions et le poids de l’exercice.
+
+== Présentation de l’application
+
+L’application est composée de 2 pages principales :
+
+- La page qui liste les routines
+- La page qui affiche la liste des exercices d’une routine
+
+=== Page de liste des routines
+
+Cette page affiche la liste des routines. Elle se situe à l’adresse `/`.
+
+Elle contient un accordéon qui affiche les routines avec le composant <<routine-item>>.
+
+En cliquant sur le bouton de création de routine, ou sur le bouton de modification d’une routine, l’utilisateur est redirigé vers la <<routine-edit-page>>.
+
+Si tous les exercices de la routine, sont marqués comme faits alors une coupe s’affiche à côté du nom de la routine.
+
+L’utilisateur peut marquer une routine comme en cours avec le bouton « checkbox ». Si la routine est en cours, le bouton « + » est affiché en vert tout comme le fond du corps de l’accordéon. Si la routine n’est pas en cours, ils seront affichés en orange.
+
+L’utilisateur peut aller sur la <<routine-edit-page,page de détail de la routine>> en cliquant sur le bouton « œil ».
+
+Il peut enfin supprimer la routine en cliquant sur le bouton « poubelle ».
+
+==== Page de modification d’une routine [[routine-edit-page]]
+
+Cette page permet de modifier et de créer une routine.
+
+Elle se situe à l’adresse `/routine/edit/:id` pour la modification d’une routine et à l’adresse `/routine/edit` pour la création d’une routine.
+
+Elle contient un formulaire qui permet de modifier le nom et la description de la routine.
+
+=== Page de liste des exercices d’une routine [[exercise-list-page]]
+
+Cette page affiche le détail d’une routine. Elle se situe à l’adresse `/exercise/:routineId`.
+
+Elle contient une liste des exercices de la routine avec le composant <<exercise-item>>.
+
+En cliquant sur le bouton de création d’exercice, ou sur le bouton de modification d’un exercice, l’utilisateur est redirigé vers la <<exercise-edit-page,page de modification/création d’un exercice>>.
+
+Lorsque l’utilisateur clique sur le bouton « image » cela affiche une image d’illustration correspondant à l’exercice. Si l’exercice n’a pas d’image, le bouton est désactivé.
+
+L’utilisateur peut également marquer un exercice comme effectué en cliquant sur le bouton « checkbox ».
+
+Il peut enfin  supprimer l’exercice en cliquant sur le bouton « poubelle ».
+
+==== Page de modification d’un exercice [[exercise-edit-page]]
+
+Cette page permet de modifier et de créer un exercice.
+
+Elle se situe à l’adresse `/exercise/:routineId/edit/:id` pour la modification d’un exercice et à l’adresse `/exercise/edit/:routineId` pour la création d’un exercice.
+
+Elle contient un formulaire qui permet de modifier le nom, le nombre de répétitions et le poids de l’exercice.
+
+
+
+
+

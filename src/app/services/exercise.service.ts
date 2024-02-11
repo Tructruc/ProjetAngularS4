@@ -51,7 +51,7 @@ export class Exerciseervice {
       // Check if the date is before today
       let today = new Date();
       let date = new Date(statusObj.date);
-      if (date.getDay() < today.getDay() || date.getMonth() < today.getMonth() || date.getFullYear() < today.getFullYear()){
+      if (date.getDate() < today.getDate() || date.getMonth() < today.getMonth() || date.getFullYear() < today.getFullYear()){
         // Reset the status to false
         statusObj.status = false;
         window.localStorage.setItem(id.toString(), JSON.stringify(statusObj));

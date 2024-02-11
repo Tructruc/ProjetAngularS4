@@ -1,21 +1,22 @@
 <div class="container mt-4" *ngIf="exercises as listExercices">
-  <h1>{{routine.name}}</h1>
-  <div class="card mb-2">
-    <div class="card-body">
-      {{routine.description}}
-      <br>
-      Date de création : <span class="badge bg-secondary">{{ routine.creationDate | date: 'dd/MM/yyyy' }}</span>
+  <div *ngIf="routine"><h1>{{ routine.name }}</h1>
+    <div class="card mb-2">
+      <div class="card-body">
+        {{ routine.description }}
+        <br>
+        Date de création : <span class="badge bg-secondary">{{ routine.creationDate | date: 'dd/MM/yyyy' }}</span>
 
-      <br><br>
-      Nombre total de répétitions : <span class="badge bg-secondary">{{ totalRepetitions }}</span>
-      <br>
-      Poids total : <span class="badge bg-secondary">{{ totalWeight }} kg</span>
+        <br><br>
+        Nombre total de répétitions : <span class="badge bg-secondary">{{ totalRepetitions }}</span>
+        <br>
+        Poids total : <span class="badge bg-secondary">{{ totalWeight }} kg</span>
+      </div>
     </div>
   </div>
 
   <br>
 
-  <div class="d-flex">
+  <div class="d-flex" *ngIf="routine">
     <h3>{{listExercices.length}} Exercice{{listExercices.length > 1 ? "s" : ""}}</h3>
     <div>
       <button class="btn btn-primary mx-2" routerLink="/exercises/{{routine.id}}/edit"><i class="fa-solid fa-plus"></i></button>
